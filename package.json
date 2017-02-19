@@ -2,6 +2,12 @@
   "name": "pino-colada",
   "version": "1.0.0",
   "description": "cute ndjson logger for pino",
+  "license": "MIT",
+  "contributors": [
+    "Irina Shestak <shestak.irina@gmail.com",
+    "Yoshua Wuyts <yoshuawuyts@gmail.com"
+  ],
+  "repository": "lrlna/township-github",
   "main": "index.js",
   "scripts": {
     "start": "node example.js | ./bin.js",
@@ -9,13 +15,9 @@
   },
   "keywords": [
     "ndjson",
-    "logger"
+    "logger",
+    "pretty-printer"
   ],
-  "contributors": [
-    "Irina Shestak",
-    "Yoshua Wuyts"
-  ],
-  "license": "MIT",
   "devDependencies": {
     "merry": "^4.3.1",
     "standard": "^8.6.0"

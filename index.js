@@ -4,18 +4,18 @@ var split = require('split2')
 var chalk = require('chalk')
 var nl = '\n'
 
+var emojiLog = {
+  warn: '⚠️',
+  info: '✨',
+  error: '🚨',
+  debug: '🐛',
+  fatal: '💀',
+  trace: '🔍'
+}
+
 module.exports = PinoColada
 
 function PinoColada () {
-  var emojiLog = {
-    warn: '⚠️',
-    info: '✨',
-    error: '🚨',
-    debug: '🐛',
-    fatal: '💀',
-    trace: '🔍'
-  }
-
   return split(parse)
 
   function parse (line) {
