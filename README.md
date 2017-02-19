@@ -1,5 +1,5 @@
 # pino-colada 🍹
-A cute [ndjson](http://ndjson.org) pretty-printer for [pino](https://github.com/pinojs/pino). 
+A cute [ndjson](http://ndjson.org) formatter for [pino](https://github.com/pinojs/pino). 
 
 ![pino-colada](./pino-colada.png)
 
