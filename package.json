@@ -7,7 +7,7 @@
     "Irina Shestak <shestak.irina@gmail.com",
     "Yoshua Wuyts <yoshuawuyts@gmail.com"
   ],
-  "repository": "lrlna/township-github",
+  "repository": "lrlna/pino-colada",
   "main": "index.js",
   "scripts": {
     "start": "node example.js | ./bin.js",
