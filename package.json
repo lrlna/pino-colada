@@ -8,6 +8,9 @@
     "Yoshua Wuyts <yoshuawuyts@gmail.com"
   ],
   "repository": "lrlna/pino-colada",
+  "bin": {
+    "pino-colada": "./bin.js"
+  },
   "main": "index.js",
   "scripts": {
     "start": "node example.js | ./bin.js",
