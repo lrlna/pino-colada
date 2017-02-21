@@ -1,4 +1,6 @@
 # pino-colada 🍹
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/lrlna/pino-colada.svg)](https://greenkeeper.io/)
 A cute [ndjson](http://ndjson.org) formatter for [pino](https://github.com/pinojs/pino). 
 
 ![pino-colada](./pino-colada.png)
