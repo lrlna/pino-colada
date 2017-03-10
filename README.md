@@ -4,7 +4,7 @@ A cute [ndjson](http://ndjson.org) formatter for [pino](https://github.com/pinoj
 ![pino-colada](./pino-colada.png)
 
 # usage
-Pipe pino-colada to a your server that uses pino for logging.
+Pipe pino-colada to a server that uses pino for logging.
 
 ```bash
 node server.js | pino-colada
