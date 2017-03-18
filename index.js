@@ -1,4 +1,6 @@
+var prettyBytes = require('prettier-bytes')
 var jsonParse = require('fast-json-parse')
+var prettyMs = require('pretty-ms')
 var padLeft = require('pad-left')
 var split = require('split2')
 var chalk = require('chalk')
@@ -48,6 +50,9 @@ function PinoColada () {
     output.push(formatLevel(obj.level))
     output.push(chalk.blue(obj.name))
     output.push(formatMessage(obj))
+    if (obj.method && obj.statusCode) output.push(formatMethod(obj.method, obj.statusCode))
+    if (obj.elapsed) output.push(formatLoadTime(obj.elapsed))
+    if (obj.contentLength) output.push(formatBundleSize(obj.contentLength))
 
     return output.join(' ')
   }
@@ -63,6 +68,23 @@ function PinoColada () {
 
   function formatLevel (level) {
     return emojiLog[level] + ' '
+  }
+
+  function formatMethod (method, status) {
+    var newStatus = method + ':' + status
+    return chalk.dim(newStatus)
+  }
+
+  function formatLoadTime (elapsedTime) {
+    var elapsed = parseInt(elapsedTime, 10)
+    var time = time > 9999 ? prettyMs(elapsed) : elapsed + 'ms'
+    return chalk.dim(time)
+  }
+
+  function formatBundleSize (bundle) {
+    var bytes = parseInt(bundle, 10)
+    var size = bytes > 9999 ? prettyBytes(bytes) : bytes + 'B'
+    return chalk.dim(size)
   }
 
   function formatMessage (obj) {
