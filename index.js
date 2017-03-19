@@ -1,6 +1,7 @@
 var prettyBytes = require('prettier-bytes')
 var jsonParse = require('fast-json-parse')
 var prettyMs = require('pretty-ms')
+var padRight = require('pad-right')
 var padLeft = require('pad-left')
 var split = require('split2')
 var chalk = require('chalk')
@@ -48,8 +49,9 @@ function PinoColada () {
 
     output.push(formatDate())
     output.push(formatLevel(obj.level))
-    output.push(chalk.blue(obj.name))
+    output.push(formatName(obj.name))
     output.push(formatMessage(obj))
+    if (obj.url) output.push(formatUrl(obj.url))
     if (obj.method && obj.statusCode) output.push(formatMethod(obj.method, obj.statusCode))
     if (obj.elapsed) output.push(formatLoadTime(obj.elapsed))
     if (obj.contentLength) output.push(formatBundleSize(obj.contentLength))
@@ -70,6 +72,27 @@ function PinoColada () {
     return emojiLog[level] + ' '
   }
 
+  function formatName (name) {
+    return padRight(chalk.blue(name), 25, ' ')
+  }
+
+  function formatMessage (obj) {
+    return padRight(format(obj), 30, ' ')
+
+    function format (obj) {
+      if (obj.level === 'error') return chalk.dim.red(obj.message)
+      if (obj.level === 'trace') return chalk.dim.white(obj.message)
+      if (obj.level === 'warn') return chalk.dim.magenta(obj.message)
+      if (obj.level === 'debug') return chalk.dim.yellow(obj.message)
+      if (obj.level === 'fatal') return chalk.bgRed(obj.message) + nl + obj.stack
+      if (obj.level === 'info' || obj.level === 'userlvl') return chalk.dim.green(obj.message)
+    }
+  }
+
+  function formatUrl (url) {
+    return chalk.white(url)
+  }
+
   function formatMethod (method, status) {
     var newStatus = method + ':' + status
     return chalk.dim(newStatus)
@@ -85,14 +108,5 @@ function PinoColada () {
     var bytes = parseInt(bundle, 10)
     var size = bytes > 9999 ? prettyBytes(bytes) : bytes + 'B'
     return chalk.dim(size)
-  }
-
-  function formatMessage (obj) {
-    if (obj.level === 'error') return chalk.dim.red(obj.message)
-    if (obj.level === 'trace') return chalk.dim.white(obj.message)
-    if (obj.level === 'warn') return chalk.dim.magenta(obj.message)
-    if (obj.level === 'debug') return chalk.dim.yellow(obj.message)
-    if (obj.level === 'fatal') return chalk.bgRed(obj.message) + nl + obj.stack
-    if (obj.level === 'info' || obj.level === 'userlvl') return chalk.dim.green(obj.message)
   }
 }
