@@ -50,10 +50,10 @@ function PinoColada () {
     output.push(formatLevel(obj.level))
     output.push(formatName(obj.name))
     output.push(formatMessage(obj))
-    if (obj.url) output.push(formatUrl(obj.url))
+    if (obj.url != null) output.push(formatUrl(obj.url))
     if (obj.method && obj.statusCode) output.push(formatMethod(obj.method, obj.statusCode))
-    if (obj.elapsed) output.push(formatLoadTime(obj.elapsed))
-    if (obj.contentLength) output.push(formatBundleSize(obj.contentLength))
+    if (obj.elapsed != null) output.push(formatLoadTime(obj.elapsed))
+    if (obj.contentLength != null) output.push(formatBundleSize(obj.contentLength))
 
     return output.join(' ')
   }
