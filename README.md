@@ -27,6 +27,8 @@ npm install pino-colada
 - [merry](https://github.com/yoshuawuyts/merry)
 - [garnish](https://github.com/mattdesl/garnish)
 - [@studio/log](https://github.com/javascript-studio/studio-log)
+- [pino-http](https://github.com/pinojs/pino-http)
+- [hapi-pino](https://github.com/pinojs/hapi-pino)
 
 ## License
 [MIT](https://tldrlegal.com/license/mit-license)
