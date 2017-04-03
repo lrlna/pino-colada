@@ -1,6 +1,7 @@
 # pino-colada 🍹
 [![npm version][1]][2] [![build status][3]][4]
 [![downloads][5]][6] [![js-standard-style][7]][8]
+
 A cute [ndjson](http://ndjson.org) formatter for [pino](https://github.com/pinojs/pino). 
 
 ![pino-colada](./pino-colada.png)
@@ -24,7 +25,7 @@ npm install pino-colada
 
 # Related content
 - [pino](https://github.com/pinojs/pino)
-- [merry](https://github.com/yoshuawuyts/merry)
+- [merry](https://github.com/shipharbor/merry)
 - [garnish](https://github.com/mattdesl/garnish)
 - [@studio/log](https://github.com/javascript-studio/studio-log)
 - [pino-http](https://github.com/pinojs/pino-http)
