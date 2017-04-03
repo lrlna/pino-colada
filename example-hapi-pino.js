@@ -18,14 +18,14 @@ server.route({
   }
 })
 
-server.register(require('hapi-pino'), (err) => {
+server.register(require('hapi-pino'), function (err) {
   if (err) {
     console.error(err)
     process.exit(1)
   }
 
   // Start the server
-  server.start((err) => {
+  server.start(function (err) {
     if (err) {
       console.error(err)
       process.exit(1)
