@@ -51,18 +51,21 @@ function PinoColada () {
     output.push(formatName(obj.name))
     output.push(formatMessage(obj))
 
-    if (obj.req && obj.res) {
-      var req = obj.req
-      var res = obj.res
-      if (req.url != null) output.push(formatUrl(req.url))
-      if (req.method && res.statusCode) output.push(formatMethod(req.method, res.statusCode))
-      if (obj.responseTime != null) output.push(formatLoadTime(obj.responseTime))
-    } else {
-      if (obj.url != null) output.push(formatUrl(obj.url))
-      if (obj.method && obj.statusCode) output.push(formatMethod(obj.method, obj.statusCode))
-      if (obj.elapsed != null) output.push(formatLoadTime(obj.elapsed))
-      if (obj.contentLength != null) output.push(formatBundleSize(obj.contentLength))
+    var req = obj.req
+    var res = obj.res
+    var statusCode = (res) ? res.statusCode : obj.statusCode
+    var responseTime = obj.responseTime || obj.elapsed
+    var method = (req) ? req.method : obj.method
+    var contentLength = obj.contentLength
+    var url = (req) ? req.url : obj.url
+
+    if (method != null) {
+      output.push(formatMethod(method))
+      output.push(formatStatusCode(statusCode))
     }
+    if (url != null) output.push(formatUrl(url))
+    if (contentLength != null) output.push(formatBundleSize(contentLength))
+    if (responseTime != null) output.push(formatLoadTime(responseTime))
 
     return output.filter(noEmpty).join(' ')
   }
@@ -73,7 +76,7 @@ function PinoColada () {
     var minutes = padLeft(date.getMinutes().toString(), 2, '0')
     var seconds = padLeft(date.getSeconds().toString(), 2, '0')
     var prettyDate = hours + ':' + minutes + ':' + seconds
-    return chalk.dim(prettyDate)
+    return chalk.gray(prettyDate)
   }
 
   function formatLevel (level) {
@@ -97,26 +100,30 @@ function PinoColada () {
     return chalk.white(url)
   }
 
-  function formatMethod (method, status) {
-    var newStatus = method + ':' + status
-    return chalk.dim(newStatus)
+  function formatMethod (method) {
+    return chalk.white(method)
+  }
+
+  function formatStatusCode (statusCode) {
+    statusCode = statusCode || 'xxx'
+    return chalk.white(statusCode)
   }
 
   function formatLoadTime (elapsedTime) {
     var elapsed = parseInt(elapsedTime, 10)
     var time = time > 9999 ? prettyMs(elapsed) : elapsed + 'ms'
-    return chalk.dim(time)
+    return chalk.gray(time)
   }
 
   function formatBundleSize (bundle) {
     var bytes = parseInt(bundle, 10)
-    var size = bytes > 9999 ? prettyBytes(bytes) : bytes + 'B'
-    return chalk.dim(size)
+    var size = prettyBytes(bytes).replace(/ /, '')
+    return chalk.gray(size)
   }
 
   function formatMessageName (message) {
-    if (message === 'request') return chalk.dim.green('req')
-    if (message === 'response') return chalk.dim.green('res')
+    if (message === 'request') return chalk.dim.green('<--')
+    if (message === 'response') return chalk.dim.green('-->')
     return chalk.dim.green(message)
   }
 
