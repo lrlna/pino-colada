@@ -45,9 +45,11 @@ function PinoColada () {
 
     if (!obj.level) obj.level = 'userlvl'
     if (!obj.name) obj.name = ''
+    if (!obj.ns) obj.ns = ''
 
     output.push(formatDate())
     output.push(formatLevel(obj.level))
+    output.push(formatNs(obj.ns))
     output.push(formatName(obj.name))
     output.push(formatMessage(obj))
 
@@ -81,6 +83,10 @@ function PinoColada () {
 
   function formatLevel (level) {
     return emojiLog[level] + ' '
+  }
+
+  function formatNs (name) {
+    return chalk.cyan(name)
   }
 
   function formatName (name) {
