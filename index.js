@@ -88,12 +88,13 @@ function PinoColada () {
   }
 
   function formatMessage (obj) {
-    if (obj.level === 'error') return chalk.dim.red(obj.message)
-    if (obj.level === 'trace') return chalk.dim.white(obj.message)
-    if (obj.level === 'warn') return chalk.dim.magenta(obj.message)
-    if (obj.level === 'debug') return chalk.dim.yellow(obj.message)
-    if (obj.level === 'fatal') return chalk.bgRed(obj.message) + nl + obj.stack
-    if (obj.level === 'info' || obj.level === 'userlvl') return formatMessageName(obj.message)
+    var msg = formatMessageName(obj.message)
+    if (obj.level === 'error') return chalk.dim.red(msg)
+    if (obj.level === 'trace') return chalk.dim.white(msg)
+    if (obj.level === 'warn') return chalk.dim.magenta(msg)
+    if (obj.level === 'debug') return chalk.dim.yellow(msg)
+    if (obj.level === 'fatal') return chalk.bgRed(msg) + nl + obj.stack
+    if (obj.level === 'info' || obj.level === 'userlvl') return chalk.green.dim(msg)
   }
 
   function formatUrl (url) {
@@ -111,7 +112,7 @@ function PinoColada () {
 
   function formatLoadTime (elapsedTime) {
     var elapsed = parseInt(elapsedTime, 10)
-    var time = time > 9999 ? prettyMs(elapsed) : elapsed + 'ms'
+    var time = prettyMs(elapsed)
     return chalk.gray(time)
   }
 
@@ -122,9 +123,9 @@ function PinoColada () {
   }
 
   function formatMessageName (message) {
-    if (message === 'request') return chalk.dim.green('<--')
-    if (message === 'response') return chalk.dim.green('-->')
-    return chalk.dim.green(message)
+    if (message === 'request') return '<--'
+    if (message === 'response') return '-->'
+    return message
   }
 
   function noEmpty (val) {
