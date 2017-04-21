@@ -14,6 +14,9 @@ var server = http.createServer(function (req, res) {
     res.end('ou weee here is some updated info')
     return
   } else if (req.url === '/content' && req.method === 'PUT') {
+  } else if (req.url === '/error') {
+    res.emit('error', new Error('oh no'))
+    res.end()
   } else {
     res.statusCode = 404
     res.end()

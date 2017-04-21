@@ -25,7 +25,7 @@
     "hapi": "^16.1.0",
     "hapi-pino": "^1.3.0",
     "merry": "^4.3.1",
-    "pino-http": "^2.4.2",
+    "pino-http": "^2.6.0",
     "standard": "^8.6.0"
   },
   "dependencies": {

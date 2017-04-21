@@ -67,6 +67,9 @@ function PinoColada () {
     if (contentLength != null) output.push(formatBundleSize(contentLength))
     if (responseTime != null) output.push(formatLoadTime(responseTime))
 
+    var err = obj.err
+    if (err) output.push(nl + chalk.dim.red(formatError(err)))
+
     return output.filter(noEmpty).join(' ')
   }
 
