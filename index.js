@@ -67,13 +67,7 @@ function PinoColada () {
     if (contentLength != null) output.push(formatBundleSize(contentLength))
     if (responseTime != null) output.push(formatLoadTime(responseTime))
 
-    var str = output.filter(noEmpty).join(' ')
-
-    // if error, output stack trace on new line
-    var err = obj.err
-    if (err && err.stack) str += nl + err.stack
-
-    return str
+    return output.filter(noEmpty).join(' ')
   }
 
   function formatDate () {
