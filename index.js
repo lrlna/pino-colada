@@ -88,12 +88,16 @@ function PinoColada () {
   }
 
   function formatMessage (obj) {
-    if (obj.level === 'error') return chalk.dim.red(obj.message)
+    if (obj.level === 'error') return chalk.dim.red(formatError(obj))
     if (obj.level === 'trace') return chalk.dim.white(obj.message)
     if (obj.level === 'warn') return chalk.dim.magenta(obj.message)
     if (obj.level === 'debug') return chalk.dim.yellow(obj.message)
-    if (obj.level === 'fatal') return chalk.bgRed(obj.message) + nl + obj.stack
+    if (obj.level === 'fatal') return chalk.bgRed(formatError(obj))
     if (obj.level === 'info' || obj.level === 'userlvl') return formatMessageName(obj.message)
+  }
+
+  function formatError (obj) {
+    return obj.stack ? obj.message + nl + obj.stack : obj.message
   }
 
   function formatUrl (url) {
