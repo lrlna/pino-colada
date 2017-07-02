@@ -23,26 +23,14 @@ function PinoColada () {
   function parse (line) {
     var obj = jsonParse(line)
     if (!obj.value || obj.err) return line + nl
-    obj = obj.value
-
-    if (!obj.level) return line + nl
-    if (typeof obj.level === 'number') convertLogNumber(obj)
-
-    return output(obj) + nl
+    return formatter(obj.value) + nl
   }
 
-  function convertLogNumber (obj) {
-    if (!obj.message) obj.message = obj.msg
-    if (obj.level === 20) obj.level = 'debug'
-    if (obj.level === 30) obj.level = 'info'
-    if (obj.level === 40) obj.level = 'warn'
-    if (obj.level === 50) obj.level = 'error'
-    if (obj.level === 60) obj.level = 'fatal'
-  }
-
-  function output (obj) {
+  function formatter (obj) {
     var output = []
 
+    if (!obj.message) obj.message = obj.msg
+    if (typeof obj.level === 'number') obj.level = convertLogNumber(obj.level)
     if (!obj.level) obj.level = 'userlvl'
     if (!obj.name) obj.name = ''
     if (!obj.ns) obj.ns = ''
@@ -70,6 +58,14 @@ function PinoColada () {
     if (responseTime != null) output.push(formatLoadTime(responseTime))
 
     return output.filter(noEmpty).join(' ')
+  }
+
+  function convertLogNumber (level) {
+    if (level === 20) return 'debug'
+    if (level === 30) return 'info'
+    if (level === 40) return 'warn'
+    if (level === 50) return 'error'
+    if (level === 60) return 'fatal'
   }
 
   function formatDate () {
