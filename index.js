@@ -106,7 +106,12 @@ function PinoColada () {
     if (obj.level === 'trace') return chalk.dim.white(msg)
     if (obj.level === 'warn') return chalk.dim.magenta(msg)
     if (obj.level === 'debug') return chalk.dim.yellow(msg)
-    if (obj.level === 'fatal') return chalk.bgRed(msg) + nl + obj.stack
+    if (obj.level === 'fatal') {
+      var pretty = chalk.white.bgRed(msg)
+      return obj.stack
+        ? pretty + nl + obj.stack
+        : pretty
+    }
     if (obj.level === 'info' || obj.level === 'userlvl') return chalk.green.dim(msg)
   }
 
