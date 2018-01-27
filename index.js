@@ -15,6 +15,10 @@ var emojiLog = {
   trace: '🔍'
 }
 
+function isWideEmoji (character) {
+  return character !== '⚠️'
+}
+
 module.exports = PinoColada
 
 function PinoColada () {
@@ -83,7 +87,9 @@ function PinoColada () {
   }
 
   function formatLevel (level) {
-    return emojiLog[level] + ' '
+    const emoji = emojiLog[level]
+    const padding = isWideEmoji(emoji) ? '' : ' '
+    return emoji + padding
   }
 
   function formatNs (name) {
