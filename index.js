@@ -102,17 +102,17 @@ function PinoColada () {
 
   function formatMessage (obj) {
     var msg = formatMessageName(obj.message)
-    if (obj.level === 'error') return chalk.dim.red(msg)
-    if (obj.level === 'trace') return chalk.dim.white(msg)
-    if (obj.level === 'warn') return chalk.dim.magenta(msg)
-    if (obj.level === 'debug') return chalk.dim.yellow(msg)
+    if (obj.level === 'error') return chalk.red(msg)
+    if (obj.level === 'trace') return chalk.white(msg)
+    if (obj.level === 'warn') return chalk.magenta(msg)
+    if (obj.level === 'debug') return chalk.yellow(msg)
+    if (obj.level === 'info' || obj.level === 'userlvl') return chalk.green(msg)
     if (obj.level === 'fatal') {
       var pretty = chalk.white.bgRed(msg)
       return obj.stack
         ? pretty + nl + obj.stack
         : pretty
     }
-    if (obj.level === 'info' || obj.level === 'userlvl') return chalk.green.dim(msg)
   }
 
   function formatUrl (url) {
