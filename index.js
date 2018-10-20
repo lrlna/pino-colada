@@ -12,7 +12,8 @@ var emojiLog = {
   error: '🚨',
   debug: '🐛',
   fatal: '💀',
-  trace: '🔍'
+  trace: '🔍',
+  other: '👽'
 }
 
 function isWideEmoji (character) {
@@ -37,12 +38,21 @@ function PinoColada () {
 
   function convertLogNumber (obj) {
     if (!obj.message) obj.message = obj.msg
-    if (obj.level === 10) obj.level = 'trace'
-    if (obj.level === 20) obj.level = 'debug'
-    if (obj.level === 30) obj.level = 'info'
-    if (obj.level === 40) obj.level = 'warn'
-    if (obj.level === 50) obj.level = 'error'
-    if (obj.level === 60) obj.level = 'fatal'
+    switch (obj.level) {
+      case 10: obj.level = 'trace'
+        break
+      case 20: obj.level = 'debug'
+        break
+      case 30: obj.level = 'info'
+        break
+      case 40: obj.level = 'warn'
+        break
+      case 50: obj.level = 'error'
+        break
+      case 60: obj.level = 'fatal'
+        break
+      default: obj.level = 'other'
+    }
   }
 
   function output (obj) {
@@ -102,16 +112,18 @@ function PinoColada () {
 
   function formatMessage (obj) {
     var msg = formatMessageName(obj.message)
-    if (obj.level === 'error') return chalk.red(msg)
-    if (obj.level === 'trace') return chalk.white(msg)
-    if (obj.level === 'warn') return chalk.magenta(msg)
-    if (obj.level === 'debug') return chalk.yellow(msg)
-    if (obj.level === 'info' || obj.level === 'userlvl') return chalk.green(msg)
-    if (obj.level === 'fatal') {
-      var pretty = chalk.white.bgRed(msg)
-      return obj.stack
+    switch (obj.level) {
+      case 'error': return chalk.red(msg)
+      case 'trace': return chalk.white(msg)
+      case 'warn': return chalk.magenta(msg)
+      case 'debug': return chalk.yellow(msg)
+      case 'trace' || 'userlvl': return chalk.green(msg)
+      case 'fatal': {
+        var pretty = chalk.white.bgRed(msg)
+        return obj.stack
         ? pretty + nl + obj.stack
         : pretty
+      }
     }
   }
 

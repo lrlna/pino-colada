@@ -14,7 +14,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node example.js | ./bin.js",
-    "test": "standard"
+    "test": "standard",
+    "lint:fix": "standard --fix"
   },
   "keywords": [
     "ndjson",
