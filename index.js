@@ -30,13 +30,13 @@ function PinoColada () {
     obj = obj.value
 
     if (!obj.level) return line + nl
+    if (!obj.message) obj.message = obj.msg
     if (typeof obj.level === 'number') convertLogNumber(obj)
 
     return output(obj) + nl
   }
 
   function convertLogNumber (obj) {
-    if (!obj.message) obj.message = obj.msg
     if (obj.level === 10) obj.level = 'trace'
     if (obj.level === 20) obj.level = 'debug'
     if (obj.level === 30) obj.level = 'info'
