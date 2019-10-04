@@ -18,6 +18,17 @@ After parsing input from `server.js`, pino-colada returns a stream and pipes it
 over to `process.stdout`. It will output a timestamp, a log level in a form of
 an emoji, and a message.
 
+# Programmatic integration as [pino prettifier](http://getpino.io/#/docs/pretty?id=api-example)
+
+```javascript
+const pino = require('pino')
+const logger = pino({
+  prettifier: require('pino-colada')
+})
+
+logger.info('hi')
+```
+
 # Install
 ```bash
 npm install pino-colada
