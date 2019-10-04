@@ -6,23 +6,23 @@ var error = merry.error
 var app = merry()
 
 app.router([
-  [ '/', function (req, res, ctx, done) {
+  ['/', function (req, res, ctx, done) {
     done(null, 'hello world')
   }],
-  [ '/user', {
+  ['/user', {
     post: function (req, res, ctx, done) {
       done(null, 'new user ✨')
     }
   }],
-  [ '/content', {
+  ['/content', {
     put: function (req, res, ctx, done) {
       done(null, 'ou weee here is some updated info')
     }
   }],
-  [ '/error', function (req, res, ctx, done) {
+  ['/error', function (req, res, ctx, done) {
     done(error({ statusCode: 500, message: 'helloooo server error' }))
   }],
-  [ '/404', notFound() ]
+  ['/404', notFound()]
 ])
 
 var server = http.createServer(app.start())
