@@ -109,7 +109,7 @@ function PinoColada () {
     if (obj.level === 'debug') pretty = chalk.yellow(msg)
     if (obj.level === 'info' || obj.level === 'userlvl') pretty = chalk.green(msg)
     if (obj.level === 'fatal') pretty = chalk.white.bgRed(msg)
-    return obj.stack
+    return (obj.level === 'fatal' || obj.level === 'error') && obj.stack
       ? pretty + nl + obj.stack
       : pretty
   }
