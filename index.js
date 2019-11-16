@@ -79,10 +79,7 @@ function PinoColada () {
 
   function formatDate () {
     var date = new Date()
-    var hours = padLeft(date.getHours().toString(), 2, '0')
-    var minutes = padLeft(date.getMinutes().toString(), 2, '0')
-    var seconds = padLeft(date.getSeconds().toString(), 2, '0')
-    var prettyDate = hours + ':' + minutes + ':' + seconds
+    var prettyDate = date.toISOString()
     return chalk.gray(prettyDate)
   }
 
