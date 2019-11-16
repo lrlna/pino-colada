@@ -1,7 +1,6 @@
 var prettyBytes = require('prettier-bytes')
 var jsonParse = require('fast-json-parse')
 var prettyMs = require('pretty-ms')
-var padLeft = require('pad-left')
 var split = require('split2')
 var chalk = require('chalk')
 var nl = '\n'
