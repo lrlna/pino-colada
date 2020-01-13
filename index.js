@@ -65,6 +65,9 @@ function PinoColada () {
     var method = (req) ? req.method : obj.method
     var contentLength = obj.contentLength
     var url = (req) ? req.url : obj.url
+    var stack = (obj.level === 'fatal' || obj.level === 'error')
+      ? obj.stack || (obj.err && obj.err.stack)
+      : null
 
     if (method != null) {
       output.push(formatMethod(method))
@@ -73,6 +76,7 @@ function PinoColada () {
     if (url != null) output.push(formatUrl(url))
     if (contentLength != null) output.push(formatBundleSize(contentLength))
     if (responseTime != null) output.push(formatLoadTime(responseTime))
+    if (stack != null) output.push(formatStack(stack))
 
     return output.filter(noEmpty).join(' ')
   }
@@ -109,9 +113,7 @@ function PinoColada () {
     if (obj.level === 'debug') pretty = chalk.yellow(msg)
     if (obj.level === 'info' || obj.level === 'userlvl') pretty = chalk.green(msg)
     if (obj.level === 'fatal') pretty = chalk.white.bgRed(msg)
-    return (obj.level === 'fatal' || obj.level === 'error') && obj.stack
-      ? pretty + nl + obj.stack
-      : pretty
+    return pretty
   }
 
   function formatUrl (url) {
@@ -143,6 +145,10 @@ function PinoColada () {
     if (message === 'request') return '<--'
     if (message === 'response') return '-->'
     return message
+  }
+
+  function formatStack (stack) {
+    return stack ? nl + stack : ''
   }
 
   function noEmpty (val) {
