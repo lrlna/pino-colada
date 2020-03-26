@@ -1,6 +1,6 @@
 {
   "name": "pino-colada",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "cute ndjson logger for pino",
   "license": "MIT",
   "contributors": [
