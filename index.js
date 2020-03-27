@@ -2,6 +2,7 @@ var prettyBytes = require('prettier-bytes')
 var jsonParse = require('fast-json-parse')
 var prettyMs = require('pretty-ms')
 var padLeft = require('pad-left')
+var split = require('split2')
 var chalk = require('chalk')
 var nl = '\n'
 
@@ -18,34 +19,17 @@ function isWideEmoji (character) {
   return character !== '⚠️'
 }
 
-function isObject (input) {
-  return Object.prototype.toString.apply(input) === '[object Object]'
-}
-
-function isPinoLog (log) {
-  return log && (log.hasOwnProperty('v') && log.v === 1)
-}
-
 module.exports = PinoColada
 
 function PinoColada () {
-  return parse
+  return split(parse)
 
-  function parse (inputData) {
-    var obj
-    if (typeof inputData === 'string') {
-      var parsedData = jsonParse(inputData)
-      if (!parsedData.value || parsedData.err || !isPinoLog(parsedData.value)) {
-        return inputData + nl
-      }
-      obj = parsedData.value
-    } else if (isObject(inputData) && isPinoLog(inputData)) {
-      obj = inputData
-    } else {
-      return inputData + nl
-    }
+  function parse (line) {
+    var obj = jsonParse(line)
+    if (!obj.value || obj.err) return line + nl
+    obj = obj.value
 
-    if (!obj.level) return inputData + nl
+    if (!obj.level) return line + nl
     if (!obj.message) obj.message = obj.msg
     if (typeof obj.level === 'number') convertLogNumber(obj)
 
