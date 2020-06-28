@@ -23,7 +23,7 @@ function isObject (input) {
 }
 
 function isPinoLog (log) {
-  return log && (log.hasOwnProperty('v') && log.v === 1)
+  return log && (log.hasOwnProperty('level'))
 }
 
 module.exports = PinoColada
