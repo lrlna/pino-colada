@@ -85,8 +85,8 @@ function PinoColada () {
       ? obj.stack || (obj.err && obj.err.stack)
       : null
     // Output err if it has more keys than 'stack'
-    var err = (obj.level === 'fatal' || obj.level === 'error')
-      && obj.err && Object.keys(obj.err).find(key => key !== 'stack')
+    var err = (obj.level === 'fatal' || obj.level === 'error') &&
+      obj.err && Object.keys(obj.err).find(key => key !== 'stack')
       ? obj.err
       : null
 
