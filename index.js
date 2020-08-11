@@ -23,7 +23,7 @@ function isObject (input) {
 }
 
 function isPinoLog (log) {
-  return log && (log.hasOwnProperty('level'))
+  return log && (Object.prototype.hasOwnProperty.call(log, 'level'))
 }
 
 module.exports = PinoColada
@@ -84,6 +84,11 @@ function PinoColada () {
     var stack = (obj.level === 'fatal' || obj.level === 'error')
       ? obj.stack || (obj.err && obj.err.stack)
       : null
+    // Output err if it has more keys than 'stack'
+    var err = (obj.level === 'fatal' || obj.level === 'error') &&
+      obj.err && Object.keys(obj.err).find(key => key !== 'stack')
+      ? obj.err
+      : null
 
     if (method != null) {
       output.push(formatMethod(method))
@@ -93,6 +98,7 @@ function PinoColada () {
     if (contentLength != null) output.push(formatBundleSize(contentLength))
     if (responseTime != null) output.push(formatLoadTime(responseTime))
     if (stack != null) output.push(formatStack(stack))
+    if (err != null) output.push(formatErrorProp(err))
 
     return output.filter(noEmpty).join(' ')
   }
@@ -165,6 +171,10 @@ function PinoColada () {
 
   function formatStack (stack) {
     return stack ? nl + stack : ''
+  }
+
+  function formatErrorProp (errorPropValue) {
+    return nl + JSON.stringify({ err: errorPropValue }, null, 2)
   }
 
   function noEmpty (val) {
