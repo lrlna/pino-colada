@@ -23,6 +23,7 @@ an emoji, and a message.
 ```javascript
 const pino = require('pino')
 const logger = pino({
+  prettyPrint: {},
   prettifier: require('pino-colada')
 })
 
