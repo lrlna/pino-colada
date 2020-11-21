@@ -22,11 +22,11 @@
     "pretty-printer"
   ],
   "devDependencies": {
-    "@hapi/hapi": "^18.0.0",
-    "hapi-pino": "^6.3.0",
-    "merry": "^4.0.0",
-    "pino-http": "^4.3.0",
-    "standard": "^14.0.0"
+    "@hapi/hapi": "^20.0.2",
+    "hapi-pino": "^8.3.0",
+    "merry": "^5.5.2",
+    "pino-http": "^5.3.0",
+    "standard": "^16.0.3"
   },
   "dependencies": {
     "chalk": "^3.0.0",
@@ -34,7 +34,7 @@
     "pad-left": "^2.1.0",
     "pad-right": "^0.2.2",
     "prettier-bytes": "^1.0.3",
-    "pretty-ms": "^5.0.0",
+    "pretty-ms": "^7.0.1",
     "split2": "^3.0.0"
   }
 }

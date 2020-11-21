@@ -23,7 +23,7 @@ function isObject (input) {
 }
 
 function isPinoLog (log) {
-  return log && (log.hasOwnProperty('v') && log.v === 1)
+  return log && log.hasOwnProperty('level') && typeof log.level === 'number'
 }
 
 module.exports = PinoColada
@@ -76,14 +76,15 @@ function PinoColada () {
 
     var req = obj.req
     var res = obj.res
-    var statusCode = (res) ? res.statusCode : obj.statusCode
+    var statusCode = res ? res.statusCode : obj.statusCode
     var responseTime = obj.responseTime || obj.elapsed
-    var method = (req) ? req.method : obj.method
+    var method = req ? req.method : obj.method
     var contentLength = obj.contentLength
-    var url = (req) ? req.url : obj.url
-    var stack = (obj.level === 'fatal' || obj.level === 'error')
-      ? obj.stack || (obj.err && obj.err.stack)
-      : null
+    var url = req ? req.url : obj.url
+    var stack =
+      obj.level === 'fatal' || obj.level === 'error'
+        ? obj.stack || (obj.err && obj.err.stack)
+        : null
 
     if (method != null) {
       output.push(formatMethod(method))
@@ -127,7 +128,8 @@ function PinoColada () {
     if (obj.level === 'trace') pretty = chalk.white(msg)
     if (obj.level === 'warn') pretty = chalk.magenta(msg)
     if (obj.level === 'debug') pretty = chalk.yellow(msg)
-    if (obj.level === 'info' || obj.level === 'userlvl') pretty = chalk.green(msg)
+    if (obj.level === 'info' || obj.level === 'userlvl')
+      pretty = chalk.green(msg)
     if (obj.level === 'fatal') pretty = chalk.white.bgRed(msg)
     return pretty
   }
