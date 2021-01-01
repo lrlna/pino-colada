@@ -25,6 +25,7 @@
     "@hapi/hapi": "^18.0.0",
     "hapi-pino": "^6.3.0",
     "merry": "^4.0.0",
+    "pino": "^6.9.0",
     "pino-http": "^4.3.0",
     "standard": "^14.0.0"
   },

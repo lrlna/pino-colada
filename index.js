@@ -28,7 +28,14 @@ function isPinoLog (log) {
 
 module.exports = PinoColada
 
-function PinoColada () {
+function PinoColada (opts) {
+  const pinoInstance = this;
+
+  const { customEmojis } = opts;
+  if (!!customEmojis) {
+    emojiLog = Object.assign ({}, emojiLog, customEmojis);
+  }
+
   return parse
 
   function parse (inputData) {
@@ -47,19 +54,11 @@ function PinoColada () {
 
     if (!obj.level) return inputData + nl
     if (!obj.message) obj.message = obj.msg
-    if (typeof obj.level === 'number') convertLogNumber(obj)
+    if (typeof obj.level === 'number') obj.level = pinoInstance.levels.labels[obj.level]
 
     return output(obj) + nl
   }
 
-  function convertLogNumber (obj) {
-    if (obj.level === 10) obj.level = 'trace'
-    if (obj.level === 20) obj.level = 'debug'
-    if (obj.level === 30) obj.level = 'info'
-    if (obj.level === 40) obj.level = 'warn'
-    if (obj.level === 50) obj.level = 'error'
-    if (obj.level === 60) obj.level = 'fatal'
-  }
 
   function output (obj) {
     var output = []
@@ -128,7 +127,7 @@ function PinoColada () {
 
   function formatMessage (obj) {
     var msg = formatMessageName(obj.message)
-    var pretty
+    var pretty = msg
     if (obj.level === 'error') pretty = chalk.red(msg)
     if (obj.level === 'trace') pretty = chalk.white(msg)
     if (obj.level === 'warn') pretty = chalk.magenta(msg)
