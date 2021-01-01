@@ -30,6 +30,34 @@ const logger = pino({
 logger.info('hi')
 ```
 
+## Custom emojis
+When using pino-colada programmatically, you can define custom emojis. This is useful
+when you define custom levels and want to provide emojis for them or if you want to
+override any default emoji.
+
+```
+const pino = require('pino')
+const logger = pino({
+  prettyPrint: {
+    customEmojis: {
+      info: '✅',
+      success: '✅',
+      fail: '❌'
+    }
+  },
+  prettifier: require('pino-colada'),
+  customLevels: {
+    success: 31,
+    fail: 32
+  }
+})
+
+logger.info ('hi');
+logger.success ('hi');
+logger.fail ('hi');
+```
+
+
 # Install
 ```bash
 npm install pino-colada
