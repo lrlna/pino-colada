@@ -68,7 +68,7 @@ function PinoColada () {
     if (!obj.name) obj.name = ''
     if (!obj.ns) obj.ns = ''
 
-    output.push(formatDate(obj.time || null))
+    output.push(formatDate(obj.time || Date.now()))
     output.push(formatLevel(obj.level))
     output.push(formatNs(obj.ns))
     output.push(formatName(obj.name))
