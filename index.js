@@ -68,7 +68,7 @@ function PinoColada () {
     if (!obj.name) obj.name = ''
     if (!obj.ns) obj.ns = ''
 
-    output.push(formatDate())
+    output.push(formatDate(obj.time || Date.now()))
     output.push(formatLevel(obj.level))
     output.push(formatNs(obj.ns))
     output.push(formatName(obj.name))
@@ -103,8 +103,8 @@ function PinoColada () {
     return output.filter(noEmpty).join(' ')
   }
 
-  function formatDate () {
-    var date = new Date()
+  function formatDate (instant) {
+    var date = new Date(instant)
     var hours = padLeft(date.getHours().toString(), 2, '0')
     var minutes = padLeft(date.getMinutes().toString(), 2, '0')
     var seconds = padLeft(date.getSeconds().toString(), 2, '0')
