@@ -31,8 +31,6 @@
   "dependencies": {
     "chalk": "^3.0.0",
     "fast-json-parse": "^1.0.2",
-    "pad-left": "^2.1.0",
-    "pad-right": "^0.2.2",
     "prettier-bytes": "^1.0.3",
     "pretty-ms": "^5.0.0",
     "split2": "^3.0.0"

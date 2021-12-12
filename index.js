@@ -1,7 +1,6 @@
 var prettyBytes = require('prettier-bytes')
 var jsonParse = require('fast-json-parse')
 var prettyMs = require('pretty-ms')
-var padLeft = require('pad-left')
 var chalk = require('chalk')
 var nl = '\n'
 
@@ -105,9 +104,9 @@ function PinoColada () {
 
   function formatDate (instant) {
     var date = new Date(instant)
-    var hours = padLeft(date.getHours().toString(), 2, '0')
-    var minutes = padLeft(date.getMinutes().toString(), 2, '0')
-    var seconds = padLeft(date.getSeconds().toString(), 2, '0')
+    var hours = date.getHours().toString().padStart(2, '0')
+    var minutes = date.getMinutes().toString().padStart(2, '0')
+    var seconds = date.getSeconds().toString().padStart(2, '0')
     var prettyDate = hours + ':' + minutes + ':' + seconds
     return chalk.gray(prettyDate)
   }
